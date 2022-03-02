@@ -4,12 +4,13 @@ import java.util.Stack;
 
 public class olympus {
     public static void main(String[] args) {
-        int[] nums = new int[3];
-        nums[0] = 0;
-        nums[1] = 9;
-        nums[2] = 9;
-        int[] marker = plusOne(nums);
-        System.out.println(Arrays.toString(marker));
+        int[] nums = new int[9];
+        String a = "111";
+        String b = "1011";
+        String c = "";
+        c = addBinary(a, b);
+        System.out.println(c);
+    
 
     }
 
@@ -134,7 +135,7 @@ public class olympus {
     public static int maxSubArray(int[] A) {
         // [-2,1,-3,4,-1,2,1,-5,4]
         int maxsofar = A[0], maxendinghere = A[0];
-        for (int i = 0; i < A.length; i++) {
+        for (int i = 1; i < A.length; i++) {
             maxsofar = Math.max(maxsofar + A[i], A[i]);
             maxendinghere = Math.max(maxsofar, maxendinghere);
         }
@@ -176,5 +177,26 @@ public class olympus {
         newNumber[0] = 1;
 
         return newNumber;
+    }
+
+    public static String addBinary(String a, String b) {
+        // 111
+        // 101
+        StringBuilder res = new StringBuilder();
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+        int carry = 0;
+        while (i >= 0 || j >= 0) {
+            int sum = carry;
+            if (i >= 0)
+                sum += a.charAt(i--) - '0';
+            if (j >= 0)
+                sum += b.charAt(j--) - '0';
+            carry = sum > 1 ? 1 : 0;
+            res.append(sum % 2);
+        }
+        if (carry != 0)
+            res.append(carry);
+        return res.reverse().toString();
     }
 }
