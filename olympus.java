@@ -1,17 +1,23 @@
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
-
+import java.util.List;
+import java.util.ArrayList;
 public class olympus {
     public static void main(String[] args) {
-        int[] nums = new int[9];
-        String a = "111";
-        String b = "1011";
-        String c = "";
-        c = addBinary(a, b);
-        System.out.println(c);
-    
-
+        int[] nums1 = new int[5];
+        nums1[0] = 1;
+        nums1[1] = 2;
+        nums1[2] = 3;
+        nums1[3] = 0;
+        nums1[4] = 0;
+        nums1[5] = 0;
+        int m = 3;
+        int n = 3;
+        int[] nums2 = new int[3];
+        nums2[0] = 2;
+        nums2[1] = 5;
+        nums2[2] = 6;
     }
 
     // given an array return the two sums
@@ -198,5 +204,59 @@ public class olympus {
         if (carry != 0)
             res.append(carry);
         return res.reverse().toString();
+    }
+
+    public static int climbStairs(int n) {
+        // base cases
+        // 3 then 1+1+1, 1+2,2+1
+        // 4 then 1+1+1+1, 1+2+1, 2+1+1,2+2
+        if (n <= 0)
+            return 0;
+        if (n == 1)
+            return 1;
+        if (n == 2)
+            return 2;
+
+        int one_step_before = 2;
+        int two_steps_before = 1;
+        int all_ways = 0;
+
+        for (int i = 2; i < n; i++) {
+            all_ways = one_step_before + two_steps_before;
+            two_steps_before = one_step_before;
+            one_step_before = all_ways;
+        }
+        return all_ways;
+    }
+
+    public static  void merge(int nums1[], int m, int nums2[], int n) {
+        //m the elements that should be merged
+        //last n elements are set to 0;
+        int i = m - 1;
+        int j = n - 1;
+        int k = m + n - 1;
+        while (i >= 0 && j >= 0) {
+            if (nums1[i] > nums2[j])
+                nums1[k--] = nums1[i--];
+            else
+                nums1[k--] = nums2[j--];
+        }
+        while (j >= 0)
+            nums1[k--] = nums2[j--];
+    }
+    
+
+    public List<List<Integer>>generate(int numrows) {
+        List<List<Integer>> allrows = new ArrayList<List<Integer>>();
+        ArrayList<Integer> rows = new ArrayList<Integer>();
+        for (int i = 0; i < numrows; i++) {
+            rows.add(0,1);
+            for (int j = 1; j < rows.size()-1; j++) {
+                rows.set(j,rows.get(j)+rows.get(j+1));
+                allrows.add(new ArrayList<Integer>(rows));
+            }
+            
+        }
+        return allrows;
     }
 }
