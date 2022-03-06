@@ -3,21 +3,18 @@ import java.util.LinkedList;
 import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 public class olympus {
     public static void main(String[] args) {
         int[] nums1 = new int[5];
-        nums1[0] = 1;
-        nums1[1] = 2;
-        nums1[2] = 3;
-        nums1[3] = 0;
-        nums1[4] = 0;
-        nums1[5] = 0;
-        int m = 3;
-        int n = 3;
-        int[] nums2 = new int[3];
-        nums2[0] = 2;
-        nums2[1] = 5;
-        nums2[2] = 6;
+        nums1[0] = 4;
+        nums1[1] = 1;
+        nums1[2] = 2;
+        nums1[3] = 1;
+        nums1[4] = 2;
+        System.out.println(singleNumber(nums1));
+
     }
 
     // given an array return the two sums
@@ -229,9 +226,9 @@ public class olympus {
         return all_ways;
     }
 
-    public static  void merge(int nums1[], int m, int nums2[], int n) {
-        //m the elements that should be merged
-        //last n elements are set to 0;
+    public static void merge(int nums1[], int m, int nums2[], int n) {
+        // m the elements that should be merged
+        // last n elements are set to 0;
         int i = m - 1;
         int j = n - 1;
         int k = m + n - 1;
@@ -244,19 +241,43 @@ public class olympus {
         while (j >= 0)
             nums1[k--] = nums2[j--];
     }
-    
 
-    public List<List<Integer>>generate(int numrows) {
+    public List<List<Integer>> generate(int numrows) {
         List<List<Integer>> allrows = new ArrayList<List<Integer>>();
         ArrayList<Integer> rows = new ArrayList<Integer>();
         for (int i = 0; i < numrows; i++) {
-            rows.add(0,1);
-            for (int j = 1; j < rows.size()-1; j++) {
-                rows.set(j,rows.get(j)+rows.get(j+1));
+            rows.add(0, 1);
+            for (int j = 1; j < rows.size() - 1; j++) {
+                rows.set(j, rows.get(j) + rows.get(j + 1));
                 allrows.add(new ArrayList<Integer>(rows));
             }
-            
+
         }
         return allrows;
     }
+
+    public static int singleNumber(int[] nums) {
+        int starter = 0;
+        int afterstar = 0;
+        while (starter < nums.length) {
+            if (starter == nums.length - 1) {
+                return nums[starter];
+            }
+            if (afterstar == nums.length) {
+                return nums[starter];
+            }
+
+            if (starter == afterstar) {
+                afterstar++;
+            }
+            if (nums[starter] == nums[afterstar]) {
+                starter++;
+                afterstar = 0;
+            }
+            afterstar++;
+        }
+        return nums[starter];
+    }
+
+    public static int longestpalindrome
 }
